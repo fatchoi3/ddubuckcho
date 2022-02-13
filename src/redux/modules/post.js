@@ -10,6 +10,7 @@ const UPLOADING = "UPLOADING";
 
 const EDIT_LIKE = "EDIT_LIKE"
 
+const LOADING = "LOADING";
 const GET_POST = "GET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
@@ -23,10 +24,12 @@ const uploadImage = createAction(UPLOAD_IMAGE, (image_url) => ({ image_url }))
 const editLike =createAction(EDIT_LIKE, (post_id,post_like) => ({post_id,post_like}));
 //const addPost = createAction(ADD_POST, (post) => ({ post }));
 //const editPost = createAction(EDIT_POST, (post_id, post) => ({ post_id, post }));
+const loading = createAction(LOADING, (is_loading) => ({is_loading}))
 const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
 
 
 // initial state
+
 const initialState = {
     image_url: "http://via.placeholder.com/400x300",
     uploading: false,
@@ -35,14 +38,24 @@ const initialState = {
     comment_cnt: 5,
     insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
     list: [],
-    like: []
+    like: [],
+    paging:{start:null,next: null,size:3},
+    is_loading: false,
+    
+    
 };
 
 
 //미들웨어
 const nori = () => {
     return async function (dispatch, useState, { history }) {
-        await api.get("/").then(function (response) {
+        const token = localStorage.getItem('token');
+         const form = new FormData()
+         form.append('hi', 40)
+        await api.post("/api",form,{
+            headers: { Authorization: 
+              `Bearer ${token}` }
+          }).then(function (response) {
             console.log(response)
             //dispatch(loadItem(response.data.result));
 
@@ -69,7 +82,9 @@ const getLikePostDB = () => {
 
 const getDatePostDB = () => {
     return async function (dispatch, getState) {
-        await api.get('/', {
+        console.log("내가 보이니")
+        dispatch(loading(true));
+        await api.get('/posts', {
             params: {
                 _limit: 10
             }
@@ -148,8 +163,9 @@ const addPostDB = (post = {}) => {
         const form = new FormData()
         form.append('title', post.title)
         form.append('contents', post.contents)
+        form.append('thumbnaill',post.thumbnail)
         console.log(post,form)
-        await api.post("/", post,
+        await api.post("/posts", post,
             {
                 headers: {
                     Authorization:`Bearer ${token}`
@@ -209,6 +225,7 @@ const deletePostDB = (postId) => {
 // reducer
 export default handleActions(
     {
+        
         [UPLOADING]: (state, action) =>
             produce(state, (draft) => {
                 draft.uploading = action.payload.uploading;
@@ -218,6 +235,10 @@ export default handleActions(
                 draft.preview = action.payload.preview;
                 console.log(draft.preview)
             }),
+            [LOADING]: (state, action) => produce(state, (draft) => {
+                draft.is_loading = action.payload.is_loading
+                console.log("로딩",action.payload.is_loading)
+              }),
 
         [ADD_POST]: (state, action) => produce(state, (draft) => {
             console.log("안녕 난 리듀서 추가얌 ")

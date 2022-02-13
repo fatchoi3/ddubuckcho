@@ -9,9 +9,9 @@ import MainPage from "./page/MainPage";
 import Login from "./page/Login";
 import Signup from "./page/Signup";
 import PostWrite from './page/PostWrite';
+import PostDetail from './page/PostDetail';
 
-
-import Header from './commponents/Header';
+import Header from './components/Header';
 
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup}/>
           <Route path="/write" exact component={PostWrite}/>
+          <Route path="/post/:id" exact component={PostDetail}/>
         </ConnectedRouter>
     </div>
   );

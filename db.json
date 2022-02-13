@@ -1,0 +1,56 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "hi": "안녕",
+      "id": 2
+    }
+  ],
+  "login": [
+    {
+      "id": 1
+    },
+    {
+      "loginId": "qwe123",
+      "password": "qwe123",
+      "id": 2
+    },
+    {
+      "loginId": "qw123",
+      "password": "qwe123",
+      "id": 3
+    },
+    {
+      "loginId": "qwe1234",
+      "password": "qwe1234",
+      "id": 4
+    }
+  ],
+  "signup": [
+    {
+      "loginId": "qwe123",
+      "password": "qwe123",
+      "confirmPassword": "qwe123",
+      "name": "qwe123",
+      "id": 1
+    },
+    {
+      "loginId": "qwe123",
+      "password": "qwe123",
+      "confirmPassword": "qwe123",
+      "name": "qwe123",
+      "id": 2
+    },
+    {
+      "loginId": "qwe1234",
+      "password": "qwe1234",
+      "confirmPassword": "qwe1234",
+      "name": "qwe1234",
+      "id": 3
+    }
+  ]
+}
