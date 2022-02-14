@@ -23,7 +23,8 @@ function LikePostList(props) {
         like: "",
         like_count: 0,
         is_like: false,
-        postId: 1
+        postId: 1,
+        userName: "qwe1232"
     },
     {
         title: "2번 사진",

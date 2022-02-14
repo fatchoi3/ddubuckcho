@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import "../App.css";
 import { actionCreators as userActions } from "../redux/modules/user";
+import Button from "@material-ui/core/Button";
 const Signup = (props) => {
  const dispatch = useDispatch()
   
@@ -43,11 +44,19 @@ const Signup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(values.loginId && values.password && values.passwordConfirm && values.name){
+    if(values.loginId && 
+      values.password &&
+       values.passwordConfirm && 
+       values.name
+       ){
       setValid(true);
     } 
 
-    if(values.loginId ==='' || values.password === '' || values.passwordConfirm === '' || values.name === ''){
+    if(values.loginId ==='' || 
+        values.password === '' || 
+        values.passwordConfirm === '' || 
+        values.name === ''
+        ){
       window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!😅");
       return;
     }
@@ -72,59 +81,83 @@ const Signup = (props) => {
 
   return (
     
-    <div className="form-container">
-      
-      <div className="input-container">
-      <form className="register-form" onSubmit={handleSubmit}>
-       {submitted && valid ? <div className="Success-message"><span style = {{color:"white"}}>회원가입에 성공했어요😊🎉</span> </div>: null}
-          <input
-          onChange={handleId}
-          value={values.loginId}
+    <div className="Signup">
+      {/*<img src= "https://community12345.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20220214_061437575.jpg"></img>*/}
+      <div className="Container">
+      <div className="Title">
+          <h2>Join Us!</h2>
+        </div>
+        <form className="register-form" onSubmit={handleSubmit}>
+          {submitted && valid ? (
+            <div className="Success-message">
+              <span style={{ color: "white" }}>회원가입에 성공했어요😊🎉</span>{" "}
+            </div>
+          ) : null}
+
+        <div className="placeholder-list">
+          <input 
+            onChange={handleId}
+            value={values.loginId}
+          placeholder="id" 
           className="form-field"
-          placeholder="Id (6글자 이상)"
           name="loginId"
-          minLength="6"
-        />
-        <p/>
-        {submitted && !values.loginId ? <span style = {{color:"red"}}>6글자 이상 입력해주세요😅❕</span> :null}
-          <p/>
-          <input
+            minlength="6"
+          />
+          {submitted && !values.loginId ? (
+            <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span> ) : null}
+
+
+          <input 
           onChange={handlePassword}
           value={values.password}
+          placeholder="pw" 
           className="form-field"
-          placeholder="Pw (6글자 이상)"
           name="password"
-          minLength="6"
-        />
-        <p/>
-         {submitted && !values.password ? <span style = {{color:"red"}}>6글자 이상 입력해주세요😅❕</span> :null}
-         <p/>
-        <input
+            minlength="6"
+          />
+          {submitted && !values.password ? (
+            <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span>
+          ) : null}
+
+          <input 
           onChange={handlePasswordConfirm}
           value={values.passwordConfirm}
+
+          placeholder="pw_confirm" 
           className="form-field"
-          placeholder="Pw Check (6글자 이상)"
           name="passwordConfirm"
-          minLength="6"
-        />
-        <p/>
-         {submitted && !values.passwordConfirm ? <span style = {{color:"red"}}>6글자 이상 입력해주세요😅❕</span> :null}
-         <p/>
-        <input
+            minlength="6"
+          />
+           {submitted && !values.passwordConfirm ? (
+            <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span>
+          ) : null}
+
+          <input 
           onChange={handleName}
           value={values.name}
-          className="form-filed"
-          placeholder="Name"
+          placeholder="Name" 
+          className="form-field"
           name="name"
-          minLength="1"
-        />
-        <p/>
-        {submitted && !values.passwordConfirm ? <span style = {{color:"red"}}>빈칸이에요😅❕</span> :null}
-        <p/>
-        <button className="button" type="submit" onClick={()=>{}}>
-        <span style = {{color:"#0054FF"}}>회원가입 하기!</span>
-        </button>
-      </form>
+            minlength="1"
+          />
+          {submitted && !values.passwordConfirm ? (
+            <span style={{ color: "red" }}>빈칸이에요😅❕</span>
+          ) : null}
+          <p />
+
+        </div>
+        <div className="btn">
+          <Button
+            variant="contained"
+            color="primary"
+            box-shadow="0px 7px 3px rgba(0, 0, 0, 0.2)"
+            type="submit"
+            onClick={() => {}}
+          >
+            Submit✉
+          </Button>
+        </div>
+        </form>
       </div>
     </div>
   );

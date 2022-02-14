@@ -28,8 +28,7 @@ function Login(props) {
             return;
         }
         dispatch(userActions.loginDB(id, password));
-        history.push('/')
-        console.log("로그인이 되었어요")
+        
     }
 
 

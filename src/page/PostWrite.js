@@ -98,8 +98,6 @@ const PostWrite = (props) => {
     }
     return (
         <div className="writePage">
-            나는 글 작성 페이지야
-
             <div>
                 <React.Fragment>
                     <input

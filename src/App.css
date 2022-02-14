@@ -4,6 +4,7 @@
   padding: 2px 20px;
   border: 2px black solid ;
 }
+/*글 작성 페이지*/
 .writeButton{
   width: 50px;
   height: 50px;
@@ -130,38 +131,62 @@
   flex-wrap: wrap;
 }
 /*회원가입*/
-.head{
+.Signup {
   background-color: white;
-  width:200px;
-  height:50px;
-  margin:  10px auto;
-  border:2px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+.image {
+  margin-top: 10%;
+  margin-left: 15%;
+}
+
+.Container {
+  background-color: #fff;
+  width: 50vw;
+  max-width: 350px;
+  margin-top: 7%;
+  margin-left:38%;
+  height: 70vh;
+  padding: 16px;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+  
+}
+
+.Title {
+  width:90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  background-color: #42b1ff;
+  border: #42b1ff;
   border-radius: 10px;
+}
+
+.Title > h2 {
+  color: white;
   text-align: center;
 }
-.form-container{
-background-color:#009dd8;
-display: flex;
-flex-direction: column;
-height:80%;
-width:70%;
-margin: 10% 15% 10% 15%;
-border-radius: 10px;
+
+
+.success-message{
+  text-align:center;
+  margin-left:25%;
 }
 
-.input-container{
- padding: 16px;
- margin:8px;
- text-align:center;
+.form-field {
+  margin-top: 6%;
+  margin-bottom: 10%;
+  margin-left: 11%;
+  padding: 2% 15%;
+  text-align:left;
 }
 
-.button{
-  background-color: white;
-  border:2px;
-  border-radius: 5px;
-
-}
-.Success-message{
+.btn {
+  width: 50%;
+  margin-left: 35%;
 }
 /*디테일 페이지*/
 .container{
@@ -172,27 +197,46 @@ border-radius: 10px;
 
 .postcontainer{
   margin-top: 10%;
-  margin-left:35%;
+  margin-left:30%;
+
+}
+
+.title_container{
+  margin-top:10%;
+  margin-right:40%;
+  padding-bottom:2%;
+  background-color:white;
+  border: 3px solid #d4d4d4;
+  border-radius: 5px;
+
 }
 
 .title{
-  margin-top:10%;
-  margin-right:50%;
-  border: 1px solid grey;
-  border-radius: 5px;
+  color:#42b1ff;
+  text-align:center;
+  
 }
 
 .img{
   object-fit:cover;
-  width:50%;
-  height: 50%
+  width:60%;
+  height: 55%;
+  margin-top:1%;
 }
 
 .description{
-  margin-right:50%;
-  border: 1px solid grey;
-  border-radius: 5px;
+  margin-top:2%;
+  margin-right:40%;
+  border: 3px solid #d4d4d4;
+  border-radius: 10px;
 }
 .heart{
-  text-align:right;
+  margin-top:1%;
+  margin-left:96%;
+}
+
+.button{
+  margin-top:10%;
+  margin-bottom:1%;
+  margin-left:82%;
 }

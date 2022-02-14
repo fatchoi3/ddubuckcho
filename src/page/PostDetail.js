@@ -1,25 +1,39 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-//import FavoriteIcon from "@material-ui/icons/Favorite";
-//import {actionCreators as postActions} from "../redux/modules/post";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import Button from "@material-ui/core/Button";
 
 const PostDetail = (props) => {
-  const useId = props.match.params.useId;
-
+  const postId = props.match.params;
+  console.log(postId)
   return (
     <div className="container" padding="16px">
       <div className="postcontainer" width="auto">
+        <div className="title_container">
         <h2 className="title">{props.title}</h2>
+        </div>
         <img src={props.images} className="img" />
         <div className="description">
           <div className ="heart">
-       {/*<FavoriteIcon pull="right" post_id={useId}></FavoriteIcon>*/}
+        <FavoriteIcon 
+        pull="right" 
+        post_id={postId}
+        color="pink">  
+        </FavoriteIcon>
         </div>
         <p classNmae="content">{props.content}</p>
+        <div className="button">
         <Link to="./PostWrite">
-          <button className="btn">수정</button>
+        <Button
+            variant="contained"
+            color="primary"
+            box-shadow="0px 7px 3px rgba(0, 0, 0, 0.2)"
+          >
+            수정하기📝
+          </Button>
         </Link>
+        </div>
         </div>
         </div>
       </div>

@@ -27,25 +27,27 @@ const initialState = {
 
 
 //middleware actions
-const loginDB = (id, password) => {
-    return function (dispatch, getState) {
+const loginDB = (loginId, password) => {
+    return async function (dispatch, getState,{history}) {
         const data = {
-            loginId: id,
+            loginId: loginId,
             password: password,
         }
-        dispatch(login(data.loginId));
-        api.post('/login', data)
+        //dispatch(login(data.loginId));
+        await api.post('/api/login', data)
             .then((response) => {
                 console.log(response);
-                if (response.token) {
-                    localStorage.setItem('token', response.token);
-                    localStorage.setItem('name', response.name);
-                    dispatch(login(response.name))
+                if (response.data.token) {
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('name', response.data.name);
+                    dispatch(login(response.data.name))
+                    history.push('/')
+                    console.log("로그인이 되었어요")
                 }
             })
             //.catch((err) => {
             //    console.log(err);
-           // }           )
+            //})
     }
 }
 const signup = (loginId, password, passwordConfirm, name) => {
@@ -59,7 +61,7 @@ const signup = (loginId, password, passwordConfirm, name) => {
       };
   
       await api
-        .post("/signup", userInfo)
+        .post("/api/signup", userInfo)
         .then(function (response) {
             console.log(response)
           history.push("/login");
