@@ -31,9 +31,10 @@ const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
 // initial state
 
 const initialState = {
-    image_url: "http://via.placeholder.com/400x300",
+    thumbnail: "http://via.placeholder.com/400x300",
     uploading: false,
     preview: null,
+    title: "",
     contents: "",
     comment_cnt: 5,
     insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
@@ -49,13 +50,11 @@ const initialState = {
 //미들웨어
 const nori = () => {
     return async function (dispatch, useState, { history }) {
-        const token = localStorage.getItem('token');
-         const form = new FormData()
-         form.append('hi', 40)
-        await api.post("/api",form,{
-            headers: { Authorization: 
-              `Bearer ${token}` }
-          }).then(function (response) {
+         const token = localStorage.getItem('token');
+        //  const form = new FormData()
+        //  form.append('hi', 40)
+        await api.get("/api/post_list")
+        .then(function (response) {
             console.log(response)
             //dispatch(loadItem(response.data.result));
 
@@ -66,14 +65,19 @@ const nori = () => {
 }
 const getLikePostDB = () => {
     return async function (dispatch, getState) {
-        await api.get('/', {
-            params: {
-                _limit: 4
-            }
-        })
+        console.log("getLikePostDB")
+        await api.get('/api/post_list'
+        
+        // {
+        //     params: {
+        //         _limit: 4
+        //     }
+        // }
+        )
             .then((response) => {
-                console.log(response);
-                // dispatch(getPost(response.data.sortbyLike));
+                console.log("LikePst",response.data.sortByLike);
+                 dispatch(getPost(response.data.sortByLike));
+                 
             }).catch((err) => {
                 console.log(err);
             })
@@ -82,16 +86,18 @@ const getLikePostDB = () => {
 
 const getDatePostDB = () => {
     return async function (dispatch, getState) {
-        console.log("내가 보이니")
+        console.log("getDatePostDB")
         dispatch(loading(true));
-        await api.get('/posts', {
-            params: {
-                _limit: 10
-            }
-        })
+        await api.get('/api/post_list'
+        // , {
+        //     params: {
+        //         _limit: 10
+        //     }
+        // }
+        )
             .then((response) => {
-                console.log(response);
-                dispatch(getPost(response.data.sortbyDate));
+                console.log("DatePst",response);
+                // dispatch(getPost(response.data.sortbyDate));
             }).catch((err) => {
                 console.log(err)
             })
@@ -164,19 +170,21 @@ const addPostDB = (post = {}) => {
         form.append('title', post.title)
         form.append('contents', post.contents)
         form.append('thumbnaill',post.thumbnail)
+        const data = {data: form}
         console.log(post,form)
-        await api.post("/posts", post,
+        await api.post("/api/post", form,
             {
+                
                 headers: {
                     Authorization:`Bearer ${token}`
                 }
             }
         ).then(function (response) {
                 console.log("안녕 나는 미들웨어 add",response)
-               // history.push('/');
-               // window.location.reload();
-             // }).catch(error => {
-               // console.log(error.message);
+                history.push('/')
+                window.location.reload();
+              }).catch(error => {
+                console.log(error.message);
             });
     }
 }
@@ -233,7 +241,7 @@ export default handleActions(
         [SET_PREVIEW]: (state, action) =>
             produce(state, (draft) => {
                 draft.preview = action.payload.preview;
-                console.log(draft.preview)
+            
             }),
             [LOADING]: (state, action) => produce(state, (draft) => {
                 draft.is_loading = action.payload.is_loading
@@ -255,6 +263,7 @@ export default handleActions(
            }),
            [GET_POST]: (state, action) => produce(state, (draft) => {
             draft.list = action.payload.post_list;
+            console.log("draft.list",draft.list)
         }),
 
     },

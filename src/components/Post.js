@@ -12,7 +12,8 @@ import { actionCreators } from "../redux/modules/post";
 const Post =(props)=>{
     const history = useHistory();
     const dispatch = useDispatch();
-    const user_id = useSelector((state) => state.user.user);
+    const user_id = useSelector((state) => state.user);
+    //console.log(user_id)
     const post_id= useSelector((state)=>state.post)
     const post_like_id_list = useSelector((state)=>state)
     const [like, setLike] = useState(false)
@@ -60,7 +61,7 @@ const Post =(props)=>{
                     onClick={() => {
                         history.push(`/detail/${postId}`);
                     }}>
-                    <img src={thumbnail} alt="썸네일" />
+                    <img src={"http://54.180.97.79"+thumbnail} alt="썸네일" />
                 </div>
                 <div className="postFooter">
                     <p className="postTitle">{title}</p>

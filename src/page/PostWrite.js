@@ -10,14 +10,15 @@ const PostWrite = (props) => {
     const { history } = props;
     const preview = useSelector((state) => state.post.preview);
     //const is_token = localStorage.getItem("token")?true:false;
+    //const user_name = localStorage.getItem("name");
     const [contents, setContents] = React.useState("");
     const [title, setTitle] = React.useState("");
-    const is_login = useSelector((state) => state.user.is_login);
-    
-    const post_id = useSelector((state) => state.post);
+   // const is_login = useSelector((state) => state.user.is_login);
+    const is_token = localStorage.getItem("token")?true:false;
+    const post_id = props.match.params.id
     const is_edit = post_id ? true : false;
 
-
+    //const is_me={post.user_info.user_id === user_info?.uid}
     const uploading = useSelector((state) => state.post.uploading);
     const fileInput = React.useRef();
 
@@ -47,9 +48,7 @@ const PostWrite = (props) => {
     const addPost = () => {
         console.log("안녕 난 추가야")
         if(title == '' || contents == '' ){
-            // console.log(fileInput)
             window.alert("게시물을 다 넣어주세요!")
-
             return;
         }
         dispatch(actionCreators.addPostDB({ 
@@ -83,7 +82,7 @@ const PostWrite = (props) => {
     const nuler = () => {
         dispatch(actionCreators.nori())
     }
-    if (!is_login) {
+    if (!is_token) {
         return (
             <div margin="100px 0px" padding="16px"
             //center
@@ -134,7 +133,7 @@ const PostWrite = (props) => {
                             placeholder="문구 입력..."
                         />
                     </div>
-                    {is_edit ? (
+                    {!is_edit ? (
                         <div>
                             <button onClick={addPost}>글 추가</button>
                         </div>

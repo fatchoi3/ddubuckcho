@@ -16,13 +16,13 @@ const PostDetail = (props) => {
         <img src={props.images} className="img" />
         <div className="description">
           <div className ="heart">
-        <FavoriteIcon 
+        {/* <FavoriteIcon 
         pull="right" 
         post_id={postId}
         color="pink">  
-        </FavoriteIcon>
+        </FavoriteIcon> */}
         </div>
-        <p classNmae="content">{props.content}</p>
+        <p className="content">{props.content}</p>
         <div className="button">
         <Link to="./PostWrite">
         <Button

@@ -23,6 +23,7 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup}/>
           <Route path="/write" exact component={PostWrite}/>
+          <Route path="/write/:id" exact component={PostWrite}/>
           <Route path="/detail/:id" exact component={PostDetail}/>
         </ConnectedRouter>
     </div>

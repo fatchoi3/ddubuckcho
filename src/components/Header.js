@@ -1,15 +1,18 @@
 import React from "react";
 import "../App.css"
-
+import { useSelector, useDispatch} from "react-redux";
 import {history} from "../redux/configureStore";
 import { RESP } from "../response/response";
-
+import { actionCreators } from "../redux/modules/user";
 const Header =() =>{
-    const count = 0;
-    const _is_token = count?true:false;
-    //const is_token = localStorage.getItem("token")?true:false;
-    console.log(_is_token)
-   if(_is_token){
+   
+    const dispatch = useDispatch();
+    const is_token = localStorage.getItem("token")?true:false;
+    console.log(is_token)
+    const logout =()=>{
+        dispatch(actionCreators.logOut({}))
+    }
+   if(is_token){
        return(
            <div className="Header">
                <div >
@@ -21,7 +24,9 @@ const Header =() =>{
                 <button onClick={()=>{
                     history.push("/")
                 }}>홈</button>
-                <button>로그아웃</button>
+                <button 
+                onClick={logout}
+                >로그아웃</button>
             </div>
            </div>
        )

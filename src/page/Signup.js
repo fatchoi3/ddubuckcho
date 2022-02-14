@@ -73,10 +73,8 @@ const Signup = (props) => {
     
     setSubmitted(true);
     dispatch(userActions.signup(values.loginId, values.password, values.passwordConfirm, values.name ));
+    console.log("회원가입중")
   }
-
-  
-
 
 
   return (
@@ -101,7 +99,7 @@ const Signup = (props) => {
           placeholder="id" 
           className="form-field"
           name="loginId"
-            minlength="6"
+            minLength="6"
           />
           {submitted && !values.loginId ? (
             <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span> ) : null}
@@ -113,7 +111,7 @@ const Signup = (props) => {
           placeholder="pw" 
           className="form-field"
           name="password"
-            minlength="6"
+          minLength="6"
           />
           {submitted && !values.password ? (
             <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span>
@@ -126,7 +124,7 @@ const Signup = (props) => {
           placeholder="pw_confirm" 
           className="form-field"
           name="passwordConfirm"
-            minlength="6"
+          minLength="6"
           />
            {submitted && !values.passwordConfirm ? (
             <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span>
@@ -138,7 +136,7 @@ const Signup = (props) => {
           placeholder="Name" 
           className="form-field"
           name="name"
-            minlength="1"
+          minLength="1"
           />
           {submitted && !values.passwordConfirm ? (
             <span style={{ color: "red" }}>빈칸이에요😅❕</span>
@@ -154,7 +152,7 @@ const Signup = (props) => {
             type="submit"
             onClick={() => {}}
           >
-            Submit✉
+           Submit✉
           </Button>
         </div>
         </form>
