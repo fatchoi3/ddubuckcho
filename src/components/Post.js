@@ -14,13 +14,13 @@ const Post =(props)=>{
     const dispatch = useDispatch();
     const user_id = useSelector((state) => state.user);
     //console.log(user_id)
-    const post_id= useSelector((state)=>state.post)
-    const post_like_id_list = useSelector((state)=>state)
+    const test= useSelector((state)=>state.post.list)
+    const post_like_id_list = useSelector((state)=>state.post.list)
     const [like, setLike] = useState(false)
     const [Heart,setHeart]= useState(post_like_id_list.length)
-    const token = localStorage.getItem("token");
+    const name = localStorage.getItem("name");
     
-    
+    console.log("post_like_id_list",post_like_id_list)
     const {
         title,
         thumbnail,
@@ -30,19 +30,19 @@ const Post =(props)=>{
         postId,
     } = props;
 
+    
 
-
-    //useEffect(() => {
-       // setHeart(post_like_id_list.length)
-  //      let is_like =false
-   // post_like_id_list.map((c,idx)=>{
-      // if(c===user_id.uid){
-    //    is_like =true;
-      //     return
-     //  }
- //  })
-     //   setLike(is_like?is_like:false)
-  //  }, [post_like_id_list.length])
+//     useEffect(() => {
+//        setHeart(post_like_id_list.length)
+//        let is_like =false
+//    post_like_id_list.map((c,idx)=>{
+//       if(c===user_id.uid){
+//        is_like =true;
+//           return
+//       }
+//   })
+//        setLike(is_like?is_like:false)
+//    }, [post_like_id_list.length])
 
     
     const toggleLike = () => {
@@ -51,20 +51,20 @@ const Post =(props)=>{
     //       return;
     //    }
        setLike(!like)
-       console.log(post_id)
-       dispatch(actionCreators.LikeDB(post_id, token));    
+       dispatch(actionCreators.LikeDB(props.id, name));    
    }
     return(
         <React.Fragment>
             <div className="postCard">
                 <div className="postImage"
                     onClick={() => {
-                        history.push(`/detail/${postId}`);
+                        history.push(`/detail/${props._id}`);
                     }}>
-                    <img src={"http://54.180.97.79"+thumbnail} alt="썸네일" />
+                    <img src={"http://3.35.233.188/"+thumbnail} alt="썸네일" />
                 </div>
                 <div className="postFooter">
                     <p className="postTitle">{title}</p>
+                    
             <Like like={like} onClick={toggleLike} />
             </div>
             </div>

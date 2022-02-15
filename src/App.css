@@ -86,22 +86,31 @@
   border-radius: 5px;
 }
 /*메인페이지*/
+.likePostCard {
+  width: 80%;
+}
+
 .postCard {
-  width: 20%;
+  width: 21%;
   margin: 20px auto;
-  border: 1px solid red;
+  border-radius: 5px;
 }
 
 .postImage {
-  /* position: relative; */
-  /* padding-top: 75%; */
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
   overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 3px #999;
 }
 
 .postImage img {
   width: 100%;
-  height: 100%;   
+  height: 100%;
   object-fit: cover;
+  cursor: pointer;
+  position: absolute;
 }
 
 .postFooter {
@@ -111,24 +120,49 @@
 }
 
 .postTitle {
-  width: 30%;
+  width: 40%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
 }
 
-.dislikeBtn {
-  background-color: "yellow";
+
+/* tablet ----------------------------------------------------- */
+@media screen and (max-width:1179px){
+  .postCard {
+      width: 40%;
+      margin: 30px auto;
+      border-radius: 5px;
+  }
 }
 
-.likeBtn {
-  background-color: red;
+/* mobile ----------------------------------------------------- */
+@media screen and (max-width:539px){
+  .postCard {
+      width: 60%;
+      margin: 20px auto;
+      border-radius: 5px;
+  }
 }
-
+/* 좋아요 리스트 */
+.iCBEms {
+  box-sizing: border-box;
+  width: 80%;
+  margin: 20px auto;
+  padding: 10px;
+  border: 2px solid red;
+  box-shadow: 3px 3px 3px 3px #999;
+}
 /* 시간리스트*/
-.postContainer {
+.postDateContainer {
+  width: 80%;
   border: 2px solid green;
   margin: 20px auto;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  box-shadow: 3px 3px 3px 3px #999;
 }
 /*회원가입*/
 .Signup {

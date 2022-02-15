@@ -9,23 +9,50 @@ const PostWrite = (props) => {
     const dispatch = useDispatch()
     const { history } = props;
     const preview = useSelector((state) => state.post.preview);
+    const post_list = useSelector((state) => state.post.list);
+
+  
+    
     //const is_token = localStorage.getItem("token")?true:false;
+   
     //const user_name = localStorage.getItem("name");
-    const [contents, setContents] = React.useState("");
-    const [title, setTitle] = React.useState("");
+  
    // const is_login = useSelector((state) => state.user.is_login);
     const is_token = localStorage.getItem("token")?true:false;
+    
     const post_id = props.match.params.id
     const is_edit = post_id ? true : false;
-
-    //const is_me={post.user_info.user_id === user_info?.uid}
+    let _post = is_edit &&post_list ? post_list.find((p) => p._id === post_id) : null;
+    const [contents, setContents] = React.useState(_post ? _post.contents : "");
+    const [title, setTitle] = React.useState(_post ? _post.title : "");
+    
+    // const is_me=(name === _post.loginId)?true:false;
     const uploading = useSelector((state) => state.post.uploading);
     const fileInput = React.useRef();
+    const token = localStorage.getItem("token")
+    console.log("token",token)
+    
 
+    React.useEffect(() => {
+        if (is_edit && !_post) {
+            console.log("포스트 정보가 없어요");
+            history.goBack();
+
+            return;
+        }
+
+        if (is_edit) {
+            dispatch(actionCreators.setPreview("http://3.35.233.188/"+_post.thumbnail));
+        }
+    }, []);
+
+
+    
     const selectFile = (e) => {
-
-        const reader = new FileReader();
+        //const file = is_edit? "http://3.35.233.188/"+_post.thumbnail:fileInput.current.files[0];
         const file = fileInput.current.files[0];
+        const reader = new FileReader();
+        
         console.log(file)
         reader.readAsDataURL(file);
 
@@ -54,20 +81,21 @@ const PostWrite = (props) => {
         dispatch(actionCreators.addPostDB({ 
             title: title,
             contents: contents,
-            thumbnail:fileInput.current.files[0] 
+            thumbnail:fileInput.current.files[0]
+            //fileInput.current.files[0] 
         }))
     }
     const editPost = () => {
-        console.log("안녕 난 수정이야")
-        dispatch(actionCreators.editPostDB(post_id, {
+        console.log("fileInput.current.files[0]",fileInput.current.files[0])
+        dispatch(actionCreators.editPostDB(_post.id, {
                                     contents: contents,
                                     title: title ,
-                                    thumbnail: fileInput.current.files[0]
+                                    thumbnail: fileInput.current.files[0]?fileInput.current.files[0]:null
                                         }));
     };
     const delPost = () => {
         console.log("안녕 난 삭제야")
-         dispatch(actionCreators.deletePostDB(post_id));
+         dispatch(actionCreators.deletePostDB(_post.id));
         //history.replace("/")
     };
     const onRemove = () => {

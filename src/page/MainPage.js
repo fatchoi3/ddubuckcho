@@ -9,7 +9,8 @@ import LikePostList from "../components/LikePostList";
 import DatePostList from "../components/DatePostList";
 import Spinner from "../elements/Spinner";
 const MainPage = ()=>{
-    const count = 1;
+    const test = useSelector(state => state.user);
+    console.log("test",test)
     const is_token = localStorage.getItem("token")?true:false;
     // const _is_token = count?true:false;
     // const is_loading =useSelector((state)=>state.post.is_loading)

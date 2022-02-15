@@ -41,6 +41,7 @@ const loginDB = (loginId, password) => {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('name', response.data.name);
                     dispatch(login(response.data.name))
+                    //history.push('/')
                     window.location.replace("/")
                     
                     console.log("로그인이 되었어요")
@@ -77,7 +78,7 @@ const signup = (loginId, password, passwordConfirm, name) => {
 export default handleActions({
     [LOGIN]: (state, action) => produce(state, (draft) => {
         draft.name = action.payload.user
-        console.log(action.payload.user)
+        console.log("action.payload.user",action.payload.user)
     }),
     [LOG_OUT]: (state, action) =>
     produce(state, (draft) => {

@@ -49,7 +49,8 @@ const initialState = {
 
 //미들웨어
 const nori = () => {
-    return async function (dispatch, useState, { history }) {
+    return async function (dispatch, getState, { history }) {
+        
          const token = localStorage.getItem('token');
         //  const form = new FormData()
         //  form.append('hi', 40)
@@ -65,14 +66,14 @@ const nori = () => {
 }
 const getLikePostDB = () => {
     return async function (dispatch, getState) {
-        console.log("getLikePostDB")
+        //console.log("getLikePostDB")
         await api.get('/api/post_list'
         
-        // {
-        //     params: {
-        //         _limit: 4
-        //     }
-        // }
+        //  ,{
+        //      params: {
+        //          _limit: 4
+        //      }
+        //  }
         )
             .then((response) => {
                 console.log("LikePst",response.data.sortByLike);
@@ -86,7 +87,7 @@ const getLikePostDB = () => {
 
 const getDatePostDB = () => {
     return async function (dispatch, getState) {
-        console.log("getDatePostDB")
+       // console.log("getDatePostDB")
         dispatch(loading(true));
         await api.get('/api/post_list'
         // , {
@@ -96,7 +97,6 @@ const getDatePostDB = () => {
         // }
         )
             .then((response) => {
-                console.log("DatePst",response);
                 // dispatch(getPost(response.data.sortbyDate));
             }).catch((err) => {
                 console.log(err)
@@ -117,18 +117,22 @@ const LikeDB = (post_id, user_id)=>{
       const token = localStorage.getItem('token');
       let is_like=false
       const _post_idx = getState().post.list.findIndex(p=>p.id ===post_id);
+      const test =getState().post.list
+      
       const _post = getState().post.list[_post_idx];
-     const _post_like = _post.like
+     const _post_like = _post.like_id
+     console.log("test",test)
      _post_like.map((c,idx)=>{
         if(c === user_id){
             is_like= true;
+            console.log("있니?")
         } 
     })
     if(is_like){
     const idx = _post.like.findIndex((p)=> p ===user_id);
     const post_like =_post_like.filter((l, i) => {return idx !== i;})
     //await
-     api.put(`/`, {like:post_like},
+     api.put(`/api/deletelike`, post_id,
             {
                 headers: {
                     Authorization:
@@ -143,7 +147,7 @@ const LikeDB = (post_id, user_id)=>{
     dispatch(editLike(post_id,post_like));
     }else{
       const post_like = [..._post_like,user_id]
-        api.post("/", user_id,
+        api.post("/api/editlike", post_id,
       {
           headers: {
               Authorization:`Bearer ${token}`
@@ -169,12 +173,11 @@ const addPostDB = (post = {}) => {
         const form = new FormData()
         form.append('title', post.title)
         form.append('contents', post.contents)
-        form.append('thumbnaill',post.thumbnail)
-        const data = {data: form}
-        console.log(post,form)
-        await api.post("/api/post", form,
-            {
-                
+        form.append('thumbnail',post.thumbnail)
+         console.log("post",post)
+        // console.log("form",form)
+        
+        await api.post("/api/post",form,{                
                 headers: {
                     Authorization:`Bearer ${token}`
                 }
@@ -191,13 +194,17 @@ const addPostDB = (post = {}) => {
 
 const editPostDB = (postId, post = {}) => {
     return async function (dispatch, getState, { history }) {
-        //   const form = new FormData()
+           const form = new FormData()
           const token = localStorage.getItem('token');
-       // form.append('title', title)
-       // form.append('content', textarea)
-        //form.append('thumbnail', file)
+         form.append('title', post.title)
+        form.append('contents', post.contents)
+         //if(post.thumbnail){
+        form.append('editThumbnail', post.thumbnail)
+        //console.log("난 나오면 안돼")
+    //}
         //form.append('images', file2)
-        await api.put(`/post/${postId}`, post,
+        console.log(post.thumbnail)
+        await api.put(`/api/update/${postId}`, form,
             {
                 headers: {
                     Authorization:
@@ -206,7 +213,7 @@ const editPostDB = (postId, post = {}) => {
             }
         ).then(function (response) {
             console.log("안녕 난 미들웨어 edit", response)
-           //history.push('/');
+          history.push('/');
            // window.location.reload('/');
         })
     }
@@ -215,7 +222,7 @@ const editPostDB = (postId, post = {}) => {
 const deletePostDB = (postId) => {
     return async function (dispatch, getState, { history }) {
         const token = localStorage.getItem('token');
-        await api.delete(`/api/post/${postId}`,
+        await api.delete(`/api/delete/${postId}`,
             {
                 headers: {
                     Authorization:
@@ -225,7 +232,7 @@ const deletePostDB = (postId) => {
         ).then(function (response) {
             console.log("안녕 난 미들웨어 delete", response)
             //window.alert("삭제 완료되었습니다.");
-           // window.location.href = "/";
+            window.location.href = "/";
         })
     }
 }
@@ -245,7 +252,7 @@ export default handleActions(
             }),
             [LOADING]: (state, action) => produce(state, (draft) => {
                 draft.is_loading = action.payload.is_loading
-                console.log("로딩",action.payload.is_loading)
+               // console.log("로딩",action.payload.is_loading)
               }),
 
         [ADD_POST]: (state, action) => produce(state, (draft) => {
@@ -263,7 +270,7 @@ export default handleActions(
            }),
            [GET_POST]: (state, action) => produce(state, (draft) => {
             draft.list = action.payload.post_list;
-            console.log("draft.list",draft.list)
+            //console.log("draft.list",draft.list)
         }),
 
     },

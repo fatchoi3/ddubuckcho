@@ -1,19 +1,41 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link,
+//  useHistory
+ } from "react-router-dom";
+
 import "../App.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Button from "@material-ui/core/Button";
 
 const PostDetail = (props) => {
-  const postId = props.match.params;
-  console.log(postId)
+  const id = props.match.params.id;
+  const post_list = useSelector(state => state.post.list);
+
+  const post_idx = post_list.findIndex(p=>p._id===id);
+  const post = post_list[post_idx]
+
+
+  const name = localStorage.getItem("name");
+  const is_me=(name === post?.loginId)?true:false;
+
+
+
+
+
+
+
+  //const history =useHistory()
+// const test = useSelector((state)=>state.post)
+
+  console.log("post",post)
   return (
     <div className="container" padding="16px">
       <div className="postcontainer" width="auto">
         <div className="title_container">
-        <h2 className="title">{props.title}</h2>
+        <h2 className="title">{post?.title}</h2>
         </div>
-        <img src={props.images} className="img" />
+        <img src={"http://3.35.233.188/"+post?.thumbnail} className="img" />
         <div className="description">
           <div className ="heart">
         {/* <FavoriteIcon 
@@ -22,9 +44,10 @@ const PostDetail = (props) => {
         color="pink">  
         </FavoriteIcon> */}
         </div>
-        <p className="content">{props.content}</p>
+        <p className="content">{post?.contents}</p>
+        {is_me&&
         <div className="button">
-        <Link to="./PostWrite">
+     <Link to={`/write/${id}`}>
         <Button
             variant="contained"
             color="primary"
@@ -33,7 +56,7 @@ const PostDetail = (props) => {
             수정하기📝
           </Button>
         </Link>
-        </div>
+        </div>}
         </div>
         </div>
       </div>
