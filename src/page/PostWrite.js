@@ -10,19 +10,16 @@ const PostWrite = (props) => {
     const { history } = props;
     const preview = useSelector((state) => state.post.preview);
     const post_list = useSelector((state) => state.post.list);
-
-  
     
-    //const is_token = localStorage.getItem("token")?true:false;
-   
-    //const user_name = localStorage.getItem("name");
-  
-   // const is_login = useSelector((state) => state.user.is_login);
+    
+    
     const is_token = localStorage.getItem("token")?true:false;
     
     const post_id = props.match.params.id
+  
     const is_edit = post_id ? true : false;
-    let _post = is_edit &&post_list ? post_list.find((p) => p._id === post_id) : null;
+    let _post = is_edit &&post_list ? post_list.find((p) => p.id == post_id) : null;
+    console.log("post_list",post_list)
     const [contents, setContents] = React.useState(_post ? _post.contents : "");
     const [title, setTitle] = React.useState(_post ? _post.title : "");
     
@@ -30,8 +27,8 @@ const PostWrite = (props) => {
     const uploading = useSelector((state) => state.post.uploading);
     const fileInput = React.useRef();
     const token = localStorage.getItem("token")
-    console.log("token",token)
-    
+    //console.log("token",token)
+
 
     React.useEffect(() => {
         if (is_edit && !_post) {
@@ -63,9 +60,7 @@ const PostWrite = (props) => {
         }
     }
     
-    // console.log(preview)
-    // const count =0;
-    //const _is_token = count?true:false;
+
     const changeTitle = (e) => {
         setTitle(e.target.value);
     }

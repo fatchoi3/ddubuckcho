@@ -1,9 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+*{ 
+  font-family:'Roboto Mono', monospace;
+}
+
 .Header{
   display: flex;
   justify-content: space-between;
   padding: 2px 20px;
-  border: 2px black solid ;
+  border: 1px #42b1ff solid ;
+  background-color: #42b1ff;
 }
+
+.HeaderTitle > h2 {
+  color:white;
+}
+
+.HeaderImage{
+
+}
+
+.homeIcon{
+  margin-top:12%;
+  margin-right:5px;
+}
+
+.logoutButton{
+  background-color:white;
+  color: #42b1ff;
+  font-weight: bold;
+  border: none;
+  border-radius:5px;
+  margin-top: 15px;
+}
+
+
+.logoutBar{
+display: flex;
+height:40px;
+margin-right:2%;
+}
+
+.loginHomeIcon{
+  margin-top:6%;
+}
+
+.loginButton{
+  background-color:white;
+  color: #42b1ff;
+  font-weight: bold;
+  border: none;
+  border-radius:5px;
+
+
+  position:relative;
+  bottom:9px;
+  height:24px;
+  left:3px;
+ 
+}
+
+.signupButton{
+  background-color:white;
+  color: #42b1ff;
+  font-weight: bold;
+  border: none;
+  border-radius:5px;
+  margin-left:5px;
+  position:relative;
+  bottom:9px;
+  height:24px;
+  left:3px;
+}
+
+.loginBar{
+  display: flex;
+ 
+}
+
 /*글 작성 페이지*/
 .writeButton{
   width: 50px;
@@ -55,35 +129,70 @@
 }
 
 /*로그인*/
-.loginTitle {
-  text-align: center;
+.image{
+  background: url("https://community12345.s3.ap-northeast-2.amazonaws.com/bukchon.jpg") no-repeat center center/cover;
+  position:absolute;
+  height: 119%;
+  width: 100%;
+  top:0;
+  left:0;
+  z-index:-1;
+  /* padding: 1px; */
+  
+}
+
+ .login{
+  width:100vw;
+  height:100vh;
+} 
+
+
+.login_Title {
+  border: 1px solid #42b1ff;
+  border-radius: 10px;
+  
+  margin:10% 10%;
+  background-color:#42b1ff;
+}
+
+.login_Title > h2 {
+  color:white;
+  text-align:center;
 }
 
 .loginContainer {
-  width: 60%;
-  margin: 70px auto;
+  background-color: #fff;
+  width: 30%;
+  height: 75%;
+  margin: 7% 30% 0% 34%;
+  
+ 
   text-align: center;
-  border: 2px solid red;
+  border: 2px solid #ddd;
+  border-radius: 5px;
 }
 
 .loginIdInput {
   display: block;
-  margin: 10px auto;
-  border: 1px solid blue;
+  width:60%;
+  height:5%;
+  
+  margin:13% auto;
 }
 
 .loginPasswordInput {
   display: block;
-  margin: 10px auto;
-  border: 2px solid green;
+  width:60%;
+  height:5%;
+  margin: 50px auto;
+ 
 }
 
 .loginBtn {
   width: 150px;
   padding: 5px;
-  margin: 20px auto;
-  border: 2px solid brown;
-  border-radius: 5px;
+  margin: 80px auto;
+  
 }
 /*메인페이지*/
 .likePostCard {
@@ -126,6 +235,10 @@
   text-overflow: ellipsis;
   font-weight: 400;
 }
+.writeButton{
+  background-color:#3667f7;
+  
+}
 
 
 /* tablet ----------------------------------------------------- */
@@ -151,8 +264,9 @@
   width: 80%;
   margin: 20px auto;
   padding: 10px;
-  border: 2px solid red;
-  box-shadow: 3px 3px 3px 3px #999;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px #e8e8e8;
 }
 /* 시간리스트*/
 .postDateContainer {
@@ -172,17 +286,17 @@
   display: flex;
 }
 
-.image {
+.signup_image {
   margin-top: 10%;
   margin-left: 15%;
 }
 
-.Container {
+.Signup_Container {
   background-color: #fff;
   width: 50vw;
   max-width: 350px;
   margin-top: 7%;
-  margin-left:38%;
+  margin-left:36%;
   height: 70vh;
   padding: 16px;
   border-radius: 5px;
@@ -190,7 +304,7 @@
   
 }
 
-.Title {
+.Signup_Title {
   width:90%;
   margin-top: 5%;
   margin-left: 5%;
@@ -199,7 +313,7 @@
   border-radius: 10px;
 }
 
-.Title > h2 {
+.Signup_Title > h2 {
   color: white;
   text-align: center;
 }
@@ -207,7 +321,7 @@
 
 .success-message{
   text-align:center;
-  margin-left:25%;
+  color:#ff2667;
 }
 
 .form-field {
@@ -218,7 +332,7 @@
   text-align:left;
 }
 
-.btn {
+.Signup_btn {
   width: 50%;
   margin-left: 35%;
 }

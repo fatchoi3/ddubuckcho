@@ -23,7 +23,7 @@ const MainPage = ()=>{
             <LikePostList />
             <DatePostList />
             {is_token?
-            <button className="writeButton" onClick={()=>{history.push("/write")}}>글 작성</button>
+            <button className="writeButton" onClick={()=>{history.push("/write")}}>📝</button>
         :""}
         </div>
     )

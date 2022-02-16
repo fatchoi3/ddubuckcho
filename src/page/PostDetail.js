@@ -7,35 +7,43 @@ import { Link,
 import "../App.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Button from "@material-ui/core/Button";
+import { actionCreators } from "../redux/modules/post";
+
+import CommentWrite from '../components/CommentWrite';
+import CommentList from '../components/CommentList'
 
 const PostDetail = (props) => {
+  const dispatch = useDispatch();
+
   const id = props.match.params.id;
-  const post_list = useSelector(state => state.post.list);
-
-  const post_idx = post_list.findIndex(p=>p._id===id);
-  const post = post_list[post_idx]
-
+  const post = useSelector(state => state.post.one_post);
+  
 
   const name = localStorage.getItem("name");
   const is_me=(name === post?.loginId)?true:false;
+ 
 
 
+console.log("post",post)
 
-
-
+  React.useEffect(() => {
+    dispatch(actionCreators.getOnePost(id));
+}, []);
 
 
   //const history =useHistory()
 // const test = useSelector((state)=>state.post)
 
-  console.log("post",post)
+  
   return (
     <div className="container" padding="16px">
       <div className="postcontainer" width="auto">
         <div className="title_container">
         <h2 className="title">{post?.title}</h2>
         </div>
-        <img src={"http://3.35.233.188/"+post?.thumbnail} className="img" />
+        <img 
+        src={"http://3.35.233.188/"+post?.thumbnail} 
+        className="img" />
         <div className="description">
           <div className ="heart">
         {/* <FavoriteIcon 
@@ -58,6 +66,8 @@ const PostDetail = (props) => {
         </Link>
         </div>}
         </div>
+        <CommentWrite postId={post?.id} name={name} />
+        <CommentList postId={post?.id} name={name} />
         </div>
       </div>
   );

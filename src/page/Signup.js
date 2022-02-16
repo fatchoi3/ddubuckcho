@@ -81,14 +81,14 @@ const Signup = (props) => {
     
     <div className="Signup">
       {/*<img src= "https://community12345.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20220214_061437575.jpg"></img>*/}
-      <div className="Container">
-      <div className="Title">
+      <div className="Signup_Container">
+      <div className="Signup_Title">
           <h2>Join Us!</h2>
         </div>
         <form className="register-form" onSubmit={handleSubmit}>
           {submitted && valid ? (
-            <div className="Success-message">
-              <span style={{ color: "white" }}>회원가입에 성공했어요😊🎉</span>{" "}
+            <div className="success-message">
+              <span>회원가입에 성공했어요😊🎉</span>{" "}
             </div>
           ) : null}
 
@@ -96,38 +96,38 @@ const Signup = (props) => {
           <input 
             onChange={handleId}
             value={values.loginId}
-          placeholder="id" 
+          placeholder="ID" 
           className="form-field"
           name="loginId"
             minLength="6"
           />
           {submitted && !values.loginId ? (
-            <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span> ) : null}
+            <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span> ) : null}
 
 
           <input 
           onChange={handlePassword}
           value={values.password}
-          placeholder="pw" 
+          placeholder="Password" 
           className="form-field"
           name="password"
           minLength="6"
           />
           {submitted && !values.password ? (
-            <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span>
+            <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span>
           ) : null}
 
           <input 
           onChange={handlePasswordConfirm}
           value={values.passwordConfirm}
 
-          placeholder="pw_confirm" 
+          placeholder="Password Check" 
           className="form-field"
           name="passwordConfirm"
           minLength="6"
           />
            {submitted && !values.passwordConfirm ? (
-            <span style={{ color: "red" }}>6글자 이상 입력해주세요😅❕</span>
+            <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span>
           ) : null}
 
           <input 
@@ -139,12 +139,12 @@ const Signup = (props) => {
           minLength="1"
           />
           {submitted && !values.passwordConfirm ? (
-            <span style={{ color: "red" }}>빈칸이에요😅❕</span>
+            <span style={{ color: "#ff2667" }}>빈칸이에요😅❕</span>
           ) : null}
           <p />
 
         </div>
-        <div className="btn">
+        <div className="Signup_btn">
           <Button
             variant="contained"
             color="primary"

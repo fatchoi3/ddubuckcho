@@ -11,7 +11,9 @@ const UPLOADING = "UPLOADING";
 const EDIT_LIKE = "EDIT_LIKE"
 
 const LOADING = "LOADING";
+const ONE_POST = "ONE_ITEM";
 const GET_POST = "GET_POST";
+const GET_POST2="GET_POST2";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 
@@ -25,7 +27,9 @@ const editLike =createAction(EDIT_LIKE, (post_id,post_like) => ({post_id,post_li
 //const addPost = createAction(ADD_POST, (post) => ({ post }));
 //const editPost = createAction(EDIT_POST, (post_id, post) => ({ post_id, post }));
 const loading = createAction(LOADING, (is_loading) => ({is_loading}))
+const onePost = createAction(ONE_POST, (post)=>({post}));
 const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
+const getPost2 = createAction(GET_POST2, (post_list) => ({ post_list }));
 
 
 // initial state
@@ -39,6 +43,7 @@ const initialState = {
     comment_cnt: 5,
     insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
     list: [],
+    list2:[],
     like: [],
     paging:{start:null,next: null,size:3},
     is_loading: false,
@@ -54,7 +59,7 @@ const nori = () => {
          const token = localStorage.getItem('token');
         //  const form = new FormData()
         //  form.append('hi', 40)
-        await api.get("/api/post_list")
+        await api.get("/api/post_list",)
         .then(function (response) {
             console.log(response)
             //dispatch(loadItem(response.data.result));
@@ -67,16 +72,16 @@ const nori = () => {
 const getLikePostDB = () => {
     return async function (dispatch, getState) {
         //console.log("getLikePostDB")
-        await api.get('/api/post_list'
-        
-        //  ,{
-        //      params: {
-        //          _limit: 4
-        //      }
-        //  }
+        const token = localStorage.getItem('token');
+        await api.get('/api/post_list',{
+            headers: {
+                Authorization:
+                    `${token}`
+            }
+        }
         )
             .then((response) => {
-                console.log("LikePst",response.data.sortByLike);
+                //console.log("LikePst",response.data.sortByLike);
                  dispatch(getPost(response.data.sortByLike));
                  
             }).catch((err) => {
@@ -88,22 +93,32 @@ const getLikePostDB = () => {
 const getDatePostDB = () => {
     return async function (dispatch, getState) {
        // console.log("getDatePostDB")
+       const token = localStorage.getItem('token');
         dispatch(loading(true));
-        await api.get('/api/post_list'
-        // , {
-        //     params: {
-        //         _limit: 10
-        //     }
-        // }
+        await api.get('/api/post_list',{
+            headers: {
+                Authorization:
+                    `${token}`
+            }
+        }
         )
             .then((response) => {
-                // dispatch(getPost(response.data.sortbyDate));
+                console.log((response.data.sortByNew)) 
+                dispatch(getPost2(response.data.sortByNew));
+                 
             }).catch((err) => {
                 console.log(err)
             })
     }
 }
-
+const getOnePost = (postid) => {
+    return async function (dispatch, useState, {history}){
+      await api.get(`/api/detail/${postid}`).then(function(response){
+        console.log("하나 받아라",response.data.post);
+        dispatch(onePost(response.data.post));
+      })
+    }
+  }
 
 
 const LikeDB = (post_id, user_id)=>{
@@ -120,8 +135,9 @@ const LikeDB = (post_id, user_id)=>{
       const test =getState().post.list
       
       const _post = getState().post.list[_post_idx];
+      
      const _post_like = _post.like_id
-     console.log("test",test)
+    
      _post_like.map((c,idx)=>{
         if(c === user_id){
             is_like= true;
@@ -129,10 +145,10 @@ const LikeDB = (post_id, user_id)=>{
         } 
     })
     if(is_like){
-    const idx = _post.like.findIndex((p)=> p ===user_id);
+    const idx = _post_like.findIndex((p)=> p ===user_id);
+    console.log("있니?")
     const post_like =_post_like.filter((l, i) => {return idx !== i;})
-    //await
-     api.put(`/api/deletelike`, post_id,
+     api.put(`/api/deleteLike/${post_id}`, null,
             {
                 headers: {
                     Authorization:
@@ -147,7 +163,7 @@ const LikeDB = (post_id, user_id)=>{
     dispatch(editLike(post_id,post_like));
     }else{
       const post_like = [..._post_like,user_id]
-        api.post("/api/editlike", post_id,
+        api.put(`/api/editLike/${post_id}`,null,
       {
           headers: {
               Authorization:`Bearer ${token}`
@@ -248,7 +264,7 @@ export default handleActions(
         [SET_PREVIEW]: (state, action) =>
             produce(state, (draft) => {
                 draft.preview = action.payload.preview;
-            
+                console.log("action.payload.preview",action.payload.preview)
             }),
             [LOADING]: (state, action) => produce(state, (draft) => {
                 draft.is_loading = action.payload.is_loading
@@ -266,11 +282,25 @@ export default handleActions(
         }),
         [EDIT_LIKE]: (state, action) => produce(state, (draft) => {
             let idx = draft.list.findIndex((p)=> p.id===action.payload.post_id);
-             draft.list[idx].like=action.payload.post_like
+            let idx2 = draft.list2.findIndex((p)=> p.id===action.payload.post_id);
+            console.log("idx",idx)
+            console.log("idx2",idx2)
+            
+             draft.list[idx].like_id=action.payload.post_like
+             draft.list2[idx2].like_id=action.payload.post_like
+             console.log("action.payload.post_like",action.payload.post_like)
            }),
+           [ONE_POST] : (state, action) => produce(state,(draft) => {
+            
+            console.log("액션에서 받아라",action.payload.post)
+            draft.one_post = action.payload.post
+          }),
            [GET_POST]: (state, action) => produce(state, (draft) => {
             draft.list = action.payload.post_list;
             //console.log("draft.list",draft.list)
+        }),[GET_POST2]: (state, action) => produce(state, (draft) => {
+            draft.list2 = action.payload.post_list;
+            console.log("draft.list2", action.payload.post_list)
         }),
 
     },
@@ -286,7 +316,9 @@ const actionCreators = {
     LikeDB,
     getPost,
     getLikePostDB,
-    getDatePostDB
+    getDatePostDB,
+    getPost2,
+    getOnePost
 };
 
 export { actionCreators };

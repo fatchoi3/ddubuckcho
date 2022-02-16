@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import Button from "@material-ui/core/Button";
 
 import '../App.css';
 
@@ -35,32 +36,39 @@ function Login(props) {
 
     return (
         <>
-            <h1 className="loginTitle">로그인</h1>
-            <div className="loginContainer">
-                <label> 아이디
-                    <input
-                        type="text"
-                        className="loginIdInput"
-                        onChange={handleIdInput}
-                        placeholder="아이디를 입력해주세요."
-                    />
-                </label>
-                <label> 비밀번호
-                    <input
-                        type="password"
-                        className="loginPasswordInput"
-                        onChange={handlePasswordInput}
-                        placeholder="비밀번호를 입력해주세요."
-                    />
-                </label>
-                <div
-                    className="loginBtn"
-                    onClick={handleLogin}
+        <div className="image">
+        <div className="login">
+        <div className="loginContainer">
+        <div className="login_Title"><h2>Login!</h2></div>
+                <input
+                    type="text"
+                    className="loginIdInput"
+                    onChange={handleIdInput}
+                    placeholder="ID"
+                />
+       
+                <input
+                    type="password"
+                    className="loginPasswordInput"
+                    onChange={handlePasswordInput}
+                    placeholder="Password"
+                />
+           
+            <div className="loginBtn">
+                <Button
+                 variant="contained"
+                 color="primary"
+                 box-shadow="0px 7px 3px rgba(0, 0, 0, 0.2)"
+                 type="submit"
+                 onClick={handleLogin}
                 >
-                    로그인 하기
-                </div>
+                Submit✉
+                </Button>
             </div>
-        </>
+        </div>
+        </div>
+        </div>
+    </>
     );
 }
 
