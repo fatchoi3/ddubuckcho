@@ -16,6 +16,10 @@ function Comment(props) {
         dispatch(commentActions.deleteCommentDB())
     }
 
+    const handleCommentEdit = () => {
+        console.log("수정할거예요.")
+    }
+
     return (
         <>
             <div className="commentContainer">
@@ -24,6 +28,7 @@ function Comment(props) {
                 <div>{date}</div>
                 {/* {is_token &&
                     <button onClick={handleCommentDelete}>삭제</button>
+                    <button onClick={handleCommentEdit}>수정</button>
                 } */}
             </div>
         </>

@@ -28,8 +28,8 @@ const getCommentDB = (postId) => {
 
         await api.get(`/api/comments/${postId}`)
             .then((response) => {
-                console.log(response.data)
-                dispatch(getComment(response.data.comments))
+                console.log("response data", response.data.comments)
+                dispatch(getComment(postId, response.data.comments))
             }).catch((err) => {
                 console.log("댓글 가져오기 실패", postId, err);
             })
@@ -54,7 +54,6 @@ const addCommentDB = (postId, comment = {}) => {
                 }
             }
         ).then(function (response) {
-            console.log(response)
 
         }).catch((err) => {
             console.log("댓글 추가하기 실패", postId, err);
@@ -73,7 +72,7 @@ const deleteCommentDB = (commentId) => {
                 }
             }
         ).then(function (response) {
-            console.log("안녕 난 미들웨어 delete", response)
+            console.log("코멘트 삭제하기", response)
             //window.alert("삭제 완료되었습니다.");
             window.location.href = "/";
         })

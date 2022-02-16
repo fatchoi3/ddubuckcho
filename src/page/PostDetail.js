@@ -24,11 +24,6 @@ const PostDetail = (props) => {
   const is_me = (name === post?.loginId) ? true : false;
 
 
-
-
-
-
-
   //const history =useHistory()
   // const test = useSelector((state)=>state.post)
 
@@ -62,8 +57,8 @@ const PostDetail = (props) => {
               </Link>
             </div>}
         </div>
-        <CommentWrite postId={id} name={name} />
-        <CommentList postId={id} name={name} />
+        <CommentWrite postId={post.id} name={name} />
+        <CommentList postId={post.id} name={name} />
       </div>
     </div>
   );

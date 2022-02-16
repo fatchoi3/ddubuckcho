@@ -11,8 +11,6 @@ function CommentList(props) {
     const { postId, name } = props;
     const comment_list = useSelector(state => state.comment.list);
 
-    console.log("테스트중", comment_list)
-
     React.useEffect(() => {
         if (!comment_list[postId]) {
             dispatch(commentActions.getCommentDB(postId))
@@ -26,9 +24,9 @@ function CommentList(props) {
     return (
         <>
             {comment_list &&
-                comment_list.map((comment, idx) => {
+                comment_list[postId].map((comment, idx) => {
                     return (
-                        <div key={idx} className="commentListContainer">
+                        <div key={comment.id} className="commentListContainer">
                             <Comment  {...comment} />
                         </div>
                     )
