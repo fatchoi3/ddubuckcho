@@ -9,10 +9,9 @@ function CommentWrite(props) {
     const { postId, name } = props;
     const dispatch = useDispatch();
 
-    const is_token = localStorage.getItem("token") ? true : false;
+    let is_token = localStorage.getItem("token") ? true : false;
 
     const [commentContents, setCommentContents] = React.useState("");
-
 
     const changeComments = (e) => {
         setCommentContents(e.target.value);
@@ -27,7 +26,7 @@ function CommentWrite(props) {
             name: name,
             comment: commentContents
         }
-        // const comment = commentContents;
+
         dispatch(commentActions.addCommentDB(postId, comment))
         setCommentContents("");
     }

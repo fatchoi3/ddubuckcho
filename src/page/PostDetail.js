@@ -8,33 +8,50 @@ import {
 import "../App.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Button from "@material-ui/core/Button";
+import { actionCreators } from "../redux/modules/post";
+import { actionCreators as commentActions } from '../redux/modules/comment';
 
+import Comment from '../components/Comment';
 import CommentWrite from '../components/CommentWrite';
-import CommentList from '../components/CommentList';
+
 
 const PostDetail = (props) => {
+  const dispatch = useDispatch();
+
   const id = props.match.params.id;
-  const post_list = useSelector(state => state.post.list);
-
-  const post_idx = post_list.findIndex(p => p._id === id);
-  const post = post_list[post_idx]
-
+  const post = useSelector(state => state.post.one_post);
+  const comment_list = useSelector(state => state.comment.list);
 
   const name = localStorage.getItem("name");
   const is_me = (name === post?.loginId) ? true : false;
 
 
+
+  console.log("post", post)
+
+  React.useEffect(() => {
+    dispatch(actionCreators.getOnePost(id));
+    dispatch(commentActions.getCommentDB(id))
+  }, []);
+
+
   //const history =useHistory()
   // const test = useSelector((state)=>state.post)
 
-  console.log("post", post)
+  if (!comment_list[id] || !id) {
+    return null;
+  }
+
+
   return (
     <div className="container" padding="16px">
       <div className="postcontainer" width="auto">
         <div className="title_container">
           <h2 className="title">{post?.title}</h2>
         </div>
-        <img src={"http://3.35.233.188/" + post?.thumbnail} className="img" />
+        <img
+          src={"http://3.35.233.188/" + post?.thumbnail}
+          className="img" />
         <div className="description">
           <div className="heart">
             {/* <FavoriteIcon 
@@ -57,8 +74,18 @@ const PostDetail = (props) => {
               </Link>
             </div>}
         </div>
-        <CommentWrite postId={post.id} name={name} />
-        <CommentList postId={post.id} name={name} />
+        <CommentWrite postId={post?.id} name={name} />
+        <>
+          {comment_list &&
+            comment_list[id].map((comment, idx) => {
+              return (
+                <div key={idx} className="commentListContainer">
+                  <Comment  {...comment} />
+                </div>
+              )
+            })
+          }
+        </>
       </div>
     </div>
   );
