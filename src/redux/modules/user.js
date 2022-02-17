@@ -47,9 +47,10 @@ const loginDB = (loginId, password) => {
                     console.log("로그인이 되었어요")
                 }
             })
-            //.catch((err) => {
-            //    console.log(err);
-            //})
+            .catch((err) => {
+               console.log(err);
+               window.alert("아이디와 비밀번호가 일치하지 않습니다.")
+        })
     }
 }
 const signup = (loginId, password, passwordConfirm, name) => {

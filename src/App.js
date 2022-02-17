@@ -16,7 +16,7 @@ import Header from './components/Header';
 
 function App() {
   return (
-    <div >
+    <div className='allpage'>
       <Header></Header>
       <ConnectedRouter  history={history}>
           <Route path="/" exact component={MainPage} />

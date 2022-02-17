@@ -36,7 +36,7 @@ function Login(props) {
 
     return (
         <>
-        <div className="image">
+        <div className="loginImage">
         <div className="login">
         <div className="loginContainer">
         <div className="login_Title"><h2>Login!</h2></div>

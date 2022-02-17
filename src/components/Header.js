@@ -7,6 +7,7 @@ import { actionCreators } from "../redux/modules/user";
 
 import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
+import ddubuckcho from "../Assets/ddubuckcho.jpg"
 const Header =() =>{
    
     const dispatch = useDispatch();
@@ -19,9 +20,12 @@ const Header =() =>{
        return(
         <div className="Header">
         <div className="HeaderImage">
-         LOGO
+    
+         <img className="HeaderImage" src={ddubuckcho} alt="로고"/>
      </div>
-     <p>DDU BUCK CHOO</p>
+     <div className="login_HdTitle">
+            <h3>DDU BUCK CHOO</h3>
+            </div>
      <div className="logoutBar">
      <HomeIcon className="homeIcon"
    onClick={()=>{
@@ -41,17 +45,19 @@ const Header =() =>{
 }
 return(
  <div className="Header">
-     <div>
-     LOGO
-     <img src=""/>
+     <div className="HeaderImage">
+     <img className="HeaderImage" src={ddubuckcho} alt="로고"/>
      </div>
-     <p className="login_HdTitle">DDU BUCK CHOO</p>
+     <div className="logout_HdTitle">
+            <h3>DDU BUCK CHOO</h3>
+            </div>
      <div>
          
      
      <HomeIcon className="loginHomeIcon"
    onClick={()=>{
      history.push("/");
+     
    }}
    style={{ 
      color: "white", 

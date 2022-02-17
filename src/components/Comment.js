@@ -7,39 +7,69 @@ import '../App.css'
 
 function Comment(props) {
     const dispatch = useDispatch();
-    const { comment, name, postId, date } = props;
-    console.log("값이 들어오나요?", comment, name, postId)
+    const { comment, commentId, date, loginId, name, id } = props;
+    const userName = localStorage.getItem("name");
 
-    const is_token = localStorage.getItem("token") ? true : false;
+    const [newComment, setNewComment] = React.useState("");
+    const [isEdit, setIsEdit] = React.useState(false);
+
+    const is_me = (userName === loginId) ? true : false;
 
     const handleCommentDelete = () => {
-        dispatch(commentActions.deleteCommentDB())
+        dispatch(commentActions.deleteCommentDB(id, commentId))
     }
 
+   
+
     const handleCommentEdit = () => {
-        console.log("수정할거예요.")
+        if (isEdit) {
+            setIsEdit(false)
+        } else {
+            setIsEdit(true)
+        }
     }
+    const changeNewComment = (e) => {
+        setNewComment(e.target.value)
+    }
+
+    const submitNewComment = () => {
+        dispatch(commentActions.editCommentDB(id, commentId, newComment))
+            .then(() => {
+                setIsEdit(false);
+            })
+    }
+    React.useEffect(() => { dispatch(commentActions.getCommentDB(id)); }, [isEdit])
 
     return (
         <>
             <div className="commentContainer">
-                <div>{name}</div>
-                <div>{comment}</div>
-                <div>{date}</div>
-                {/* {is_token &&
-                    <button onClick={handleCommentDelete}>삭제</button>
-                    <button onClick={handleCommentEdit}>수정</button>
-                } */}
+                <div>
+            {isEdit
+                    ?
+                    <>
+                       <div>작성자 : {name}</div>
+                        <input defaultValue={comment} onChange={changeNewComment}></input>
+                        <div>{date}</div>
+                        <button onClick={submitNewComment}>수정완료</button>
+                    </>
+                    :
+                    <>
+                        <div>작성자 : {name}</div>
+                        <div>내용 : {comment}</div>
+                        <div>작성 날짜 : {date}</div>
+                    </>
+                }
+                </div>
+                {is_me &&
+                    <div>
+                        <button onClick={handleCommentDelete}>삭제</button>
+                        <button onClick={handleCommentEdit}>수정하기</button>
+                    </div>
+                }
             </div>
         </>
     );
 }
 
-Comment.defaultProps = {
-    name: "mean0",
-    postId: 1,
-    comment: "귀여운 고양이네요!",
-    date: '2021-01-01 19:00:00'
-}
 
 export default Comment;

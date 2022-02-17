@@ -3,7 +3,7 @@ import "../App.css"
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/post";
-
+import Spinner from "../elements/Spinner";
 
 const PostWrite = (props) => {
     const dispatch = useDispatch()
@@ -11,18 +11,17 @@ const PostWrite = (props) => {
     const preview = useSelector((state) => state.post.preview);
     const post_list = useSelector((state) => state.post.list);
     
-    
-    
     const is_token = localStorage.getItem("token")?true:false;
     
     const post_id = props.match.params.id
   
     const is_edit = post_id ? true : false;
-    let _post = is_edit &&post_list ? post_list.find((p) => p.id == post_id) : null;
-    console.log("post_list",post_list)
+    let _post = 
+        is_edit &&post_list ? post_list.find((p) => p.id == post_id) : null;
+   
     const [contents, setContents] = React.useState(_post ? _post.contents : "");
     const [title, setTitle] = React.useState(_post ? _post.title : "");
-    
+    const [loading, setLoading]= useState(true);
     // const is_me=(name === _post.loginId)?true:false;
     const uploading = useSelector((state) => state.post.uploading);
     const fileInput = React.useRef();
@@ -40,7 +39,16 @@ const PostWrite = (props) => {
 
         if (is_edit) {
             dispatch(actionCreators.setPreview("http://3.35.233.188/"+_post.thumbnail));
-        }
+           
+            let timer= setTimeout(()=>{
+                setLoading(false)
+            },750)
+        }else{
+            dispatch(actionCreators.setPreview("http://via.placeholder.com/400x300"));
+        let timer= setTimeout(()=>{
+            setLoading(false)
+        },750)
+    }
     }, []);
 
 
@@ -68,7 +76,6 @@ const PostWrite = (props) => {
         setContents(e.target.value);
     }
     const addPost = () => {
-        console.log("안녕 난 추가야")
         if(title == '' || contents == '' ){
             window.alert("게시물을 다 넣어주세요!")
             return;
@@ -81,7 +88,6 @@ const PostWrite = (props) => {
         }))
     }
     const editPost = () => {
-        console.log("fileInput.current.files[0]",fileInput.current.files[0])
         dispatch(actionCreators.editPostDB(_post.id, {
                                     contents: contents,
                                     title: title ,
@@ -89,7 +95,6 @@ const PostWrite = (props) => {
                                         }));
     };
     const delPost = () => {
-        console.log("안녕 난 삭제야")
          dispatch(actionCreators.deletePostDB(_post.id));
         //history.replace("/")
     };
@@ -102,11 +107,10 @@ const PostWrite = (props) => {
         }
     };
 
-    const nuler = () => {
-        dispatch(actionCreators.nori())
-    }
+  
     if (!is_token) {
         return (
+            
             <div margin="100px 0px" padding="16px"
             //center
             >
@@ -119,10 +123,13 @@ const PostWrite = (props) => {
         )
     }
     return (
+        <div>
+        {loading?(<Spinner type={'page'} is_dim={true}/>):
         <div className="writePage">
-            <div>
+              <div>
                 <React.Fragment>
                     <input
+                         className="fileInput"
                         type="file"
                         ref={fileInput}
                         onChange={selectFile}
@@ -137,15 +144,16 @@ const PostWrite = (props) => {
                         <img
                             className="writeImage"
                             src={preview ? preview : "http://via.placeholder.com/400x300"}
-                        />
+                        alt="미리보기"/>
                     </div>
                 </div>
                 <div className="writeContent">
                     <div>
                         <input
+                        className="titlePlaceholder"
                             value={title}
                             onChange={changeTitle}
-                            placeholder="제목 입력.." />
+                            placeholder="여행지 장소" />
                     </div>
                     <div>
                         <textarea
@@ -153,20 +161,23 @@ const PostWrite = (props) => {
                             value={contents}
                             onChange={changeContents}
                             type="text"
-                            placeholder="문구 입력..."
+                            placeholder="내용 입력..."
                         />
+                     </div>
                     </div>
                     {!is_edit ? (
                         <div>
-                            <button onClick={addPost}>글 추가</button>
+                            <button className="addBtn" onClick={addPost}>글 추가</button>
                         </div>
-                    ) : (<div>
-                        <button onClick={editPost}>수정</button>
-                        <button onClick={onRemove}>삭제</button>
-                    </div>)}
-                </div>
+                    ) : (<div className="editBtnContainer">
+                        <button className="fixBtn" onClick={editPost}>수정</button>
+                        <button  className="deleteBtn" onClick={onRemove}>삭제</button>
+                    </div>
+                    )}
+                
             </div>
-            <button onClick={nuler}>눌러줘</button>
+                 
+        </div>}
         </div>
     )
 }

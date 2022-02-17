@@ -62,8 +62,10 @@ const Post =(props)=>{
                     <p className="postTitle">{title}</p>
                     
             <Like like={like} onClick={toggleLike} />
-            <p>{Heart}</p>
-            </div>
+                    <div className="datePostHeart">
+                         <p>{Heart}</p>
+                    </div>
+                </div>
             </div>
         </React.Fragment>
     )

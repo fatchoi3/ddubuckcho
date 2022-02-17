@@ -18,12 +18,20 @@ function DatePostList(props) {
 
     return (
         <>
+           <div className="postDateWrap">
+           <div className="DlistName">
+             <h4 >☝️최신 리스트</h4>
+             </div>
             <div className="postDateContainer">
+           <div className="postListTitle">
+            {/* <h3>최신 리스트</h3> */}
+            </div>
                 {post_list.map((p, idx) => {
                     return (
                         <Post key={idx} {...p} />
                     )
                 })}
+            </div>
             </div>
         </>
     );

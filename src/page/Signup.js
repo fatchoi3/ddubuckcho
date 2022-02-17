@@ -4,18 +4,14 @@ import {useDispatch, useSelector} from "react-redux";
 import "../App.css";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Button from "@material-ui/core/Button";
+
 const Signup = (props) => {
- const dispatch = useDispatch()
-  
-
-  const [id, setId] = React.useState("");
-
+const dispatch=useDispatch()
   const [values, setValues] = useState({
     loginId: "",
     password: "",
     passwordConfirm: "",
     name: "",
-    specificCharacter: "/[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi",
   });
  
  
@@ -24,7 +20,7 @@ const Signup = (props) => {
   const [valid, setValid] = useState(false);
 
 
-  
+  const specialLetter = values.loginId.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
   const handleId = (e) => {
     setValues({ ...values, loginId: e.target.value });
@@ -41,10 +37,14 @@ const Signup = (props) => {
   const handleName = (e) => {
     setValues({ ...values, name: e.target.value });
   };
+  const handleSpecialLetter = (e) => {
+    setValues({...values, specialLetter: e.target.value});
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(values.loginId && 
+    if(
+      values.loginId && 
       values.password &&
        values.passwordConfirm && 
        values.name
@@ -66,32 +66,26 @@ const Signup = (props) => {
     return;
     }
 
-    if( values.loginId === values.specificCharacter){
-      window.alert("특수 문자는 안돼요!😅");
+    if (values.loginId.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi) !== -1) {
+      window.alert("ID에 특수 문자는 안돼요!😅");
       return;
     }
     
     setSubmitted(true);
     dispatch(userActions.signup(values.loginId, values.password, values.passwordConfirm, values.name ));
-    console.log("회원가입중")
   }
 
 
   return (
     
-    <div className="Signup">
+    <div className="SignupImage">
       {/*<img src= "https://community12345.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20220214_061437575.jpg"></img>*/}
       <div className="Signup_Container">
       <div className="Signup_Title">
           <h2>Join Us!</h2>
         </div>
         <form className="register-form" onSubmit={handleSubmit}>
-          {submitted && valid ? (
-            <div className="success-message">
-              <span>회원가입에 성공했어요😊🎉</span>{" "}
-            </div>
-          ) : null}
-
+          
         <div className="placeholder-list">
           <input 
             onChange={handleId}
@@ -102,19 +96,20 @@ const Signup = (props) => {
             minLength="6"
           />
           {submitted && !values.loginId ? (
-            <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span> ) : null}
+          <p>   <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span></p> ) : null}
 
 
           <input 
           onChange={handlePassword}
           value={values.password}
+          type="Password"
           placeholder="Password" 
           className="form-field"
           name="password"
           minLength="6"
           />
           {submitted && !values.password ? (
-            <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span>
+           <p>  <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span></p>
           ) : null}
 
           <input 
@@ -122,12 +117,13 @@ const Signup = (props) => {
           value={values.passwordConfirm}
 
           placeholder="Password Check" 
+          type="Password"
           className="form-field"
           name="passwordConfirm"
           minLength="6"
           />
            {submitted && !values.passwordConfirm ? (
-            <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span>
+           <p> <span style={{ color: "#ff2667" }}>6글자 이상 입력해주세요😅❕</span></p>
           ) : null}
 
           <input 
@@ -139,7 +135,7 @@ const Signup = (props) => {
           minLength="1"
           />
           {submitted && !values.passwordConfirm ? (
-            <span style={{ color: "#ff2667" }}>빈칸이에요😅❕</span>
+            <p><span style={{ color: "#ff2667" }}>빈칸이에요😅❕</span></p>
           ) : null}
           <p />
 

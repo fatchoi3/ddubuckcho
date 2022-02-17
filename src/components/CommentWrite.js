@@ -8,7 +8,7 @@ import { actionCreators as commentActions } from '../redux/modules/comment';
 function CommentWrite(props) {
     const { postId, name } = props;
     const dispatch = useDispatch();
-
+    const inputRef = React.useRef(null);
     const is_token = localStorage.getItem("token") ? true : false;
 
     const [commentContents, setCommentContents] = React.useState("");
@@ -29,14 +29,14 @@ function CommentWrite(props) {
         }
         // const comment = commentContents;
         dispatch(commentActions.addCommentDB(postId, comment))
-        setCommentContents("");
+        inputRef.current.value = "";
     }
     return (
         <>
             {is_token &&
                 <div className="commentWriteContainer">
-                    <input onChange={changeComments} placeholder="댓글을 입력해 주세요." />
-                    <button onClick={commentWrite}>comment 작성하기</button>
+                    <input className="comment" defaultValue={commentContents} ref={inputRef} onChange={changeComments} placeholder="댓글을 입력해 주세요." />
+                    <button  className="commentBtn" onClick={commentWrite}>comment 작성하기</button>
                 </div>
             }
         </>

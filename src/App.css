@@ -3,21 +3,62 @@
 *{ 
   font-family:'Roboto Mono', monospace;
 }
-
+.allpage{
+  padding: 10px 30px;
+}
+.writeLoad{
+  background-color: white;
+}
+.mainImage{
+  /* background: url("https://community12345.s3.ap-northeast-2.amazonaws.com/bukchon.jpg") no-repeat center center/cover; */
+  background: url("https://community12345.s3.ap-northeast-2.amazonaws.com/city.jpg") no-repeat center center/cover; 
+  position:absolute;
+  height: 200%;
+  width: 100%;
+  top:0;
+  left:0;
+  z-index:-1;
+  /* padding: 1px; */
+  
+}
+/* .writeImage{
+  background: url("https://community12345.s3.ap-northeast-2.amazonaws.com/city.jpg") no-repeat center center/cover;
+  position:absolute;
+  height: 119%;
+  width: 100%;
+  top:0;
+  left:0;
+  z-index:-1;
+} */
 .Header{
   display: flex;
   justify-content: space-between;
   padding: 2px 20px;
   border: 1px #42b1ff solid ;
   background-color: #42b1ff;
+  border-radius: 20px;
 }
 
 .HeaderTitle > h2 {
   color:white;
+  text-align: center;
 }
 
-.HeaderImage{
+.login_HdTitle{
+  color:white;
+  margin-left:11%;
+  
+}
 
+.logout_HdTitle{
+  color:white;
+  margin-left:11%
+}
+.HeaderImage{
+  margin: 3px 0px;
+  width: 50px;
+  height: 50px;
+  border-radius:  50px;
 }
 
 .homeIcon{
@@ -95,6 +136,9 @@ margin-right:2%;
   border-radius: 50px;
   vertical-align: middle;
 }
+.fileInput{
+  margin-left:25%;
+}
 .writeImageInner{
   position: relative;
     /* padding-top: 20%; */
@@ -105,6 +149,7 @@ margin-right:2%;
 .writeImageOutter{
   width: 50%;
     min-width: 200px;
+    margin-left:25%;
 }
 .writeImage{
   object-fit:cover;
@@ -113,23 +158,65 @@ margin-right:2%;
 }
 .contents{
   display: flex;
+  width:10
 }
 .writeContent{
-  height: 100%;
+  position:absolute;
+  top:68%; left:40%;
+  margin-top:1%;
+  height:30px;
+}
+.titlePlaceholder{
+  width:598px;
+  margin-left:-25%;
 }
 .writetrip{
   height: 200px;
+  width:600px;
+  margin-left:-25%;
   /* border: white; */
 }
 .writePage{
    padding: 2% 10%;
+  
   /* display: flex; */
    /* align-items: center;
    justify-content: space-between;  */
 }
 
+.addBtn{
+  background-color:#3545af;
+  color:white;
+  border: none;
+  border-radius: 3px;
+  width:70px;
+  height:30px;
+  margin-top:10%;
+}
+.editBtnContainer{
+margin-top:57%;
+}
+.fixBtn{
+  background-color:#3545af;
+  color:white;
+  border: none;
+  border-radius: 3px;
+  width:60px;
+  height:30px;
+
+}
+
+.deleteBtn{
+  background-color:#3545af;
+  color:white;
+  border: none;
+  border-radius: 3px;
+  width:60px;
+  height:30px;
+  margin-left:2px;
+}
 /*로그인*/
-.image{
+.loginImage{
   background: url("https://community12345.s3.ap-northeast-2.amazonaws.com/bukchon.jpg") no-repeat center center/cover;
   position:absolute;
   height: 119%;
@@ -164,9 +251,7 @@ margin-right:2%;
   background-color: #fff;
   width: 30%;
   height: 75%;
-  margin: 7% 30% 0% 34%;
-  
- 
+  margin: 8% 30% 0% 35%;
   text-align: center;
   border: 2px solid #ddd;
   border-radius: 5px;
@@ -176,9 +261,12 @@ margin-right:2%;
   display: block;
   width:60%;
   height:5%;
-  
   margin:13% auto;
 }
+
+/* .loginIdInput> textarea:focus{
+  border-color:red;
+} */
 
 .loginPasswordInput {
   display: block;
@@ -194,7 +282,18 @@ margin-right:2%;
   margin: 80px auto;
   
 }
+
+
 /*메인페이지*/
+.mainContainer > h4{
+  text-align: center;
+  /* background-color: #fff; */
+ }
+ 
+ .LikeList{
+   padding:30px;
+   margin-top:0%;
+ }
 .likePostCard {
   width: 80%;
 }
@@ -235,6 +334,9 @@ margin-right:2%;
   text-overflow: ellipsis;
   font-weight: 400;
 }
+.datePostHeart{
+  margin-left: -40%;
+}
 .writeButton{
   background-color:#3667f7;
   
@@ -260,6 +362,7 @@ margin-right:2%;
 }
 /* 좋아요 리스트 */
 .iCBEms {
+  background-color:  white;
   box-sizing: border-box;
   width: 80%;
   margin: 20px auto;
@@ -267,16 +370,41 @@ margin-right:2%;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 10px;
   box-shadow: 3px 3px 3px 3px #e8e8e8;
+  
 }
+.likePostHeart{
+  margin-left: -40%;
+}
+.listName{
+  margin: 5% 10% 0% 7%; 
+  /* text-align: center; */
+  padding-left: 1%;
+  background-color: white;
+  width: 21%;
+  border-radius: 8px;
+  box-shadow: 1px 1px 2px 1px #999;
+ }
 /* 시간리스트*/
 .postDateContainer {
   width: 80%;
-  border: 2px solid green;
-  margin: 20px auto;
+  margin: 30px auto;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   box-shadow: 3px 3px 3px 3px #999;
+  background-color:  white;
+}
+.postListTitle >h3{
+  text-align:center;
+}
+.DlistName{
+  margin: 0% 10% 0% 10%; 
+  /* text-align: center; */
+  padding:0% 1% 0% 1%;
+  background-color: white;
+  width: 9%;
+  border-radius: 8px;
+  box-shadow: 1px 1px 2px 1px #999;
 }
 /*회원가입*/
 .Signup {
@@ -286,28 +414,33 @@ margin-right:2%;
   display: flex;
 }
 
-.signup_image {
-  margin-top: 10%;
-  margin-left: 15%;
+.SignupImage{
+  background: url("https://community12345.s3.ap-northeast-2.amazonaws.com/city.jpg") no-repeat center center/cover;
+  position:absolute;
+  height: 119%;
+  width: 100%;
+  top:0;
+  left:0;
+  z-index:-1;
 }
 
 .Signup_Container {
   background-color: #fff;
-  width: 50vw;
-  max-width: 350px;
-  margin-top: 7%;
+  width: 100vw;
+  max-width: 410px;
+  margin-top: 8%;
   margin-left:36%;
   height: 70vh;
   padding: 16px;
   border-radius: 5px;
   border: 2px solid #ddd;
-  
 }
 
 .Signup_Title {
-  width:90%;
+  width:85%;
+  height:13%;
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 8%;
   background-color: #42b1ff;
   border: #42b1ff;
   border-radius: 10px;
@@ -316,6 +449,8 @@ margin-right:2%;
 .Signup_Title > h2 {
   color: white;
   text-align: center;
+  position:relative;
+  top:16px;
 }
 
 
@@ -323,61 +458,90 @@ margin-right:2%;
   text-align:center;
   color:#ff2667;
 }
-
 .form-field {
-  margin-top: 6%;
-  margin-bottom: 10%;
-  margin-left: 11%;
-  padding: 2% 15%;
+  margin-top: 8%;
+  margin-bottom: 5%;
+  margin-left: 14%;
+  padding: 1% 15%;
   text-align:left;
 }
 
 .Signup_btn {
   width: 50%;
-  margin-left: 35%;
+  margin-left: 39%;
 }
+
 /*디테일 페이지*/
 .container{
-  position: relative;
-  overflow: hidden;
+  overflow: scroll;
+  /* position: relative; */
+  /* overflow: hidden; */
   background-size:cover;
+  /* background: url("https://community12345.s3.ap-northeast-2.amazonaws.com/bukchon.jpg") no-repeat center center/cover;  */
+  position:absolute;
+  height: 90%;
+  width: 100%;
+  top:10%;
+  left:0;
+  z-index:-1;
 }
 
 .postcontainer{
-  margin-top: 10%;
-  margin-left:30%;
+  margin-top:0%;
+  margin-left:35%;
 
 }
 
 .title_container{
-  margin-top:10%;
-  margin-right:40%;
-  padding-bottom:2%;
-  background-color:white;
-  border: 3px solid #d4d4d4;
-  border-radius: 5px;
-
+  width:505px;
+  height: 30px;
+  margin-top:5%;
+  margin-bottom:1%;
+  margin-left:-2px;
+  padding-bottom:1%;
+  background-color:rgb(193, 192, 192);
+  border: 2px solid none;
+  border-radius: 18px;
 }
 
 .title{
-  color:#42b1ff;
+  color:white;
   text-align:center;
-  
+  margin:auto;
 }
 
 .img{
   object-fit:cover;
-  width:60%;
-  height: 55%;
-  margin-top:1%;
+  width:50%;
+  height: 50%;
+  margin-top:0%;
 }
 
 .description{
   margin-top:2%;
-  margin-right:40%;
-  border: 3px solid #d4d4d4;
-  border-radius: 10px;
+  margin-right:50%;
+  border: 2px solid #e4e3e3;
+  border-radius: 2px;
+  background-color: white;
+  
 }
+
+.commentWriteContainer{
+  display: flex;
+  margin-bottom:2%;
+  margin-top:1%;
+}
+
+.comment{
+  border: 1px solid #42b1ff;
+}
+
+.commentBtn{
+background-color:#42b1ff;
+border: none;
+color: white;
+}
+
 .heart{
   margin-top:1%;
   margin-left:96%;
@@ -386,5 +550,13 @@ margin-right:2%;
 .button{
   margin-top:10%;
   margin-bottom:1%;
-  margin-left:82%;
+  margin-left:77%;
+  width: 25%;
+}
+/* 댓글 */
+.commentContainer {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: dashed;
 }

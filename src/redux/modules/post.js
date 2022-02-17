@@ -192,7 +192,6 @@ const addPostDB = (post = {}) => {
         form.append('thumbnail',post.thumbnail)
          console.log("post",post)
         // console.log("form",form)
-        
         await api.post("/api/post",form,{                
                 headers: {
                     Authorization:`Bearer ${token}`
@@ -203,7 +202,7 @@ const addPostDB = (post = {}) => {
                 history.push('/')
                 window.location.reload();
               }).catch(error => {
-                console.log(error.message);
+                window.alert("작성내용을 다시 확인해주세욥~!");
             });
     }
 }
@@ -231,7 +230,9 @@ const editPostDB = (postId, post = {}) => {
             console.log("안녕 난 미들웨어 edit", response)
           history.push('/');
            // window.location.reload('/');
-        })
+        }).catch(error => {
+            window.alert("작성내용을 다시 확인해주세욥~!");
+        });
     }
 }
 

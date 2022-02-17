@@ -69,7 +69,9 @@ function LikePost(props) {
                 <div className="postFooter">
                     <p className="postTitle">{title}</p>
                     <Like like={like} onClick={toggleLike} />
+                    <div className="likePostHeart">
                     <p>{Heart}</p>
+                    </div>
                 </div>
             </div>
         </>
