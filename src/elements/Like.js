@@ -6,13 +6,13 @@ import emptyHeart from "../Assets/emptyHeart.png";
 
 
 
-const Like = ({ like, onClick })=>{
-    
+const Like = ({ like, onClick }) => {
+    //console.log(like)
     return (
         <HeartI
-        src={like?Heart:emptyHeart} 
-        
-        onClick={onClick} />
+            src={like ? Heart : emptyHeart}
+
+            onClick={onClick} />
     )
 }
 

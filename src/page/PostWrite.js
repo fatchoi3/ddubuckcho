@@ -11,27 +11,23 @@ const PostWrite = (props) => {
     const preview = useSelector((state) => state.post.preview);
     const post_list = useSelector((state) => state.post.list);
 
-  
-    
-    //const is_token = localStorage.getItem("token")?true:false;
-   
-    //const user_name = localStorage.getItem("name");
-  
-   // const is_login = useSelector((state) => state.user.is_login);
-    const is_token = localStorage.getItem("token")?true:false;
-    
+
+
+    const is_token = localStorage.getItem("token") ? true : false;
+
     const post_id = props.match.params.id
+
     const is_edit = post_id ? true : false;
-    let _post = is_edit &&post_list ? post_list.find((p) => p._id === post_id) : null;
+    let _post = is_edit && post_list ? post_list.find((p) => p.id == post_id) : null;
+    console.log("post_list", post_list)
     const [contents, setContents] = React.useState(_post ? _post.contents : "");
     const [title, setTitle] = React.useState(_post ? _post.title : "");
-    
+
     // const is_me=(name === _post.loginId)?true:false;
     const uploading = useSelector((state) => state.post.uploading);
     const fileInput = React.useRef();
     const token = localStorage.getItem("token")
-    console.log("token",token)
-    
+
 
     React.useEffect(() => {
         if (is_edit && !_post) {
@@ -42,17 +38,17 @@ const PostWrite = (props) => {
         }
 
         if (is_edit) {
-            dispatch(actionCreators.setPreview("http://3.35.233.188/"+_post.thumbnail));
+            dispatch(actionCreators.setPreview("http://3.35.233.188/" + _post.thumbnail));
         }
     }, []);
 
 
-    
+
     const selectFile = (e) => {
         //const file = is_edit? "http://3.35.233.188/"+_post.thumbnail:fileInput.current.files[0];
         const file = fileInput.current.files[0];
         const reader = new FileReader();
-        
+
         console.log(file)
         reader.readAsDataURL(file);
 
@@ -62,10 +58,8 @@ const PostWrite = (props) => {
 
         }
     }
-    
-    // console.log(preview)
-    // const count =0;
-    //const _is_token = count?true:false;
+
+
     const changeTitle = (e) => {
         setTitle(e.target.value);
     }
@@ -74,28 +68,28 @@ const PostWrite = (props) => {
     }
     const addPost = () => {
         console.log("안녕 난 추가야")
-        if(title == '' || contents == '' ){
+        if (title == '' || contents == '') {
             window.alert("게시물을 다 넣어주세요!")
             return;
         }
-        dispatch(actionCreators.addPostDB({ 
+        dispatch(actionCreators.addPostDB({
             title: title,
             contents: contents,
-            thumbnail:fileInput.current.files[0]
+            thumbnail: fileInput.current.files[0]
             //fileInput.current.files[0] 
         }))
     }
     const editPost = () => {
-        console.log("fileInput.current.files[0]",fileInput.current.files[0])
+        console.log("fileInput.current.files[0]", fileInput.current.files[0])
         dispatch(actionCreators.editPostDB(_post.id, {
-                                    contents: contents,
-                                    title: title ,
-                                    thumbnail: fileInput.current.files[0]?fileInput.current.files[0]:null
-                                        }));
+            contents: contents,
+            title: title,
+            thumbnail: fileInput.current.files[0] ? fileInput.current.files[0] : null
+        }));
     };
     const delPost = () => {
         console.log("안녕 난 삭제야")
-         dispatch(actionCreators.deletePostDB(_post.id));
+        dispatch(actionCreators.deletePostDB(_post.id));
         //history.replace("/")
     };
     const onRemove = () => {

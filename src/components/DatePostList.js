@@ -6,16 +6,15 @@ import Post from './Post';
 
 function DatePostList(props) {
     const dispatch = useDispatch();
-    const post_list = useSelector((state) => state.post.list);
+    const post_list = useSelector((state) => state.post.list2);
 
-    //console.log("post_list",post_list)
     React.useEffect(() => {
 
         // if (post_list.length < 2) {
-            dispatch(postActions.getDatePostDB());
-            console.log("나는 보이니?")
+        dispatch(postActions.getDatePostDB());
+        console.log("나는 보이니?")
         // }
-     }, [])
+    }, [])
 
     return (
         <>

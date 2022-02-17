@@ -21,6 +21,8 @@ const initialState = {
     user: null,
     is_login: true,
     name: null,
+
+
 }
 
 
@@ -39,7 +41,7 @@ const loginDB = (loginId, password) => {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('name', response.data.loginId);
                     dispatch(login(response.data.name))
-                    //history.push('/')
+                    // history.push('/')
                     window.location.replace("/")
 
                     console.log("로그인이 되었어요")

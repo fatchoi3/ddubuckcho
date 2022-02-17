@@ -7,7 +7,6 @@ import '../App.css'
 
 function Comment(props) {
     const dispatch = useDispatch();
-    let is_edit = false;
     const { comment, commentId, date, loginId, name, id } = props;
     const userName = localStorage.getItem("name");
 
@@ -15,6 +14,11 @@ function Comment(props) {
     const [isEdit, setIsEdit] = React.useState(false);
 
     const is_me = (userName === loginId) ? true : false;
+
+
+    React.useEffect(() => {
+        dispatch(commentActions.getCommentDB(id));
+    }, [isEdit])
 
     const handleCommentDelete = () => {
         dispatch(commentActions.deleteCommentDB(id, commentId))
